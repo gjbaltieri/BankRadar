@@ -1,5 +1,6 @@
 import axios from 'axios'
 import * as cheerio from 'cheerio'
+import type { Article } from './interface/Article.js';
 
 async function URLdata(url: string) {
     try {
@@ -10,15 +11,20 @@ async function URLdata(url: string) {
         },)
         const $ = cheerio.load(data)
 
-        const h1: String[] = []
+        const articles: Article[] = []
 
         $('h2 a, h3 a').each((index, element) => {
-            const titulo = $(element).text().trim();
-            if (titulo) {
-                h1.push(titulo)
+            const titulo = $(element).text().trim()
+            const href = $(element).attr('href')
+            if (titulo && href) {
+                articles.push({
+                    title: titulo,
+                    url: href,
+                    source: url
+                })
             }
         })
-        console.log(h1)
+        console.log(articles)
     } catch (error) {
 
     }
