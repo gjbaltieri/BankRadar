@@ -1,6 +1,5 @@
 import axios from 'axios'
-import * as cheerio from 'cheerio'
-import type { Article } from './interface/Article.js';
+import { dataParser } from './parsers/site-parser.js';
 
 async function URLdata(url: string) {
     try {
@@ -9,22 +8,8 @@ async function URLdata(url: string) {
                 'User-Agent': 'Mozilla/5.0'
             }
         },)
-        const $ = cheerio.load(data)
 
-        const articles: Article[] = []
-
-        $('h2 a, h3 a').each((index, element) => {
-            const titulo = $(element).text().trim()
-            const href = $(element).attr('href')
-            if (titulo && href) {
-                articles.push({
-                    title: titulo,
-                    url: href,
-                    source: url
-                })
-            }
-        })
-        console.log(articles)
+        console.log(dataParser(data, url))
     } catch (error) {
 
     }
