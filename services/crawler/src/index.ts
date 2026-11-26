@@ -15,4 +15,4 @@ async function URLdata(url: string) {
     }
 }
 
-URLdata('https://www.inoney.com.br/')
+URLdata('https://www.infomoney.com.br/')

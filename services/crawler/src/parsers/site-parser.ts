@@ -12,7 +12,7 @@ export function dataParser(data: string, baseUrl: string): Article[] {
         if (titulo && href) {
             articles.push({
                 title: titulo,
-                url: href,
+                url: new URL(href, baseUrl).toString(),
                 source: baseUrl
             })
         }
