@@ -11,8 +11,8 @@ async function URLdata(url: string) {
 
         console.log(dataParser(data, url))
     } catch (error) {
-
+        console.error("erro ao processar a requisição", error)
     }
 }
 
-URLdata('https://www.infomoney.com.br/')
+URLdata('https://www.inoney.com.br/')
