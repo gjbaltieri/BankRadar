@@ -11,11 +11,18 @@ export function dataParser(data: string, baseUrl: string, selectors: string[]): 
             const href = $(element).attr('href')
 
             if (titulo && href) {
-                articles.push({
-                    title: titulo,
-                    url: new URL(href, baseUrl).toString(),
-                    source: baseUrl
-                })
+                try {
+                    const url = new URL(href, baseUrl)
+                    if (url.protocol === 'http:' || url.protocol === 'https:') {
+                        articles.push({
+                            title: titulo,
+                            url: new URL(href, baseUrl).toString(),
+                            source: baseUrl
+                        })
+                    }
+                } catch (error) {
+                    console.error('URL inválida:', href)
+                }
             }
         })
     }
