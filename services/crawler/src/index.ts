@@ -3,6 +3,7 @@ import { dataParser } from './parsers/data-parser';
 import type { Article } from './interface/Article';
 import type { Site } from './interface/Site';
 import { sites } from './config/sites'
+import { titleFilter } from './filters/bank-filters';
 
 async function URLdata(sites: Site[]) {
     const articles: Article[] = []
@@ -11,15 +12,20 @@ async function URLdata(sites: Site[]) {
         for (const source of site.sources) {
             try {
                 const { data } = await axios.get(source, {
+                    timeout: 10_000,
+                    responseType: 'text',
                     headers: {
                         'User-Agent': 'Mozilla/5.0'
                     }
                 },)
-                const result = dataParser(data, source, site.selectors)
-                articles.push(...result.slice(0, 1)) //slice aplicado para facilitar validação
+                const results = dataParser(data, source, site.selectors)
 
+                const validArticle = titleFilter(results)
+
+                articles.push(...validArticle)
 
             }
+
             catch (error) {
                 console.error(error, 'erro na requisição')
                 continue;

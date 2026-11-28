@@ -1,6 +1,5 @@
 import * as cheerio from 'cheerio'
 import type { Article } from '../interface/Article'
-import { sites } from '../config/sites'
 
 export function dataParser(data: string, baseUrl: string, selectors: string[]): Article[] {
     const $ = cheerio.load(data)
