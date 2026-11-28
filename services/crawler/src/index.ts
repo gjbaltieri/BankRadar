@@ -1,16 +1,14 @@
 import axios from 'axios'
 import { dataParser } from './parsers/data-parser';
 import type { Article } from './interface/Article';
-
-import { sites } from './config/sites.js'
-import type { Site } from './interface/Site.js';
+import type { Site } from './interface/Site';
+import { sites } from './config/sites'
 
 async function URLdata(sites: Site[]) {
     const articles: Article[] = []
-
+    const uniqueArticles: Article[] = []
     for (const site of sites) {
         for (const source of site.sources) {
-            console.log(source);
             try {
                 const { data } = await axios.get(source, {
                     headers: {
@@ -19,17 +17,26 @@ async function URLdata(sites: Site[]) {
                 },)
                 const result = dataParser(data, source, site.selectors)
                 articles.push(...result.slice(0, 1)) //slice aplicado para facilitar validação
-            }
 
+
+            }
             catch (error) {
                 console.error(error, 'erro na requisição')
                 continue;
             }
         }
 
+    }
+
+    for (const article of articles) {
+        if (!uniqueArticles.some(item => item.url === article.url)) {
+            uniqueArticles.push(article)
+        }
+
 
     }
-    return articles
+
+    return uniqueArticles
 }
 
 async function main() {
