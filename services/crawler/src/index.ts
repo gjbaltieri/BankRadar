@@ -17,8 +17,8 @@ async function URLdata(sites: Site[]) {
                         'User-Agent': 'Mozilla/5.0'
                     }
                 },)
-                const result = dataParser(data, source)
-                articles.push(...result)
+                const result = dataParser(data, source, site.selectors)
+                articles.push(...result.slice(0, 1)) //slice aplicado para facilitar validação
             }
 
             catch (error) {
