@@ -37,8 +37,6 @@ export async function collectArticles(sites: Site[]) {
         if (!uniqueArticles.some(item => item.url === article.url)) {
             uniqueArticles.push(article)
         }
-
-
     }
 
     return uniqueArticles
