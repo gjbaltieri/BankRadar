@@ -16,6 +16,5 @@ export const sites: Site[] = [{
     title: 'Valor Econômico',
     domain: 'https://valor.globo.com/',
     sources: ['https://valor.globo.com/financas/', 'https://valor.globo.com/empresas/', 'https://valor.globo.com/ultimas-noticias/'],
-    selectors: ['"h2.highlight__title > a.bstn-dedupe-url"']
+    selectors: ["h2.highlight__title > a.bstn-dedupe-url"]
 }]
-

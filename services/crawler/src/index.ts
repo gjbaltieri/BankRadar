@@ -1,6 +1,6 @@
 import axios from 'axios'
-import { dataParser } from './parsers/data-parser.js';
-import type { Article } from './interface/Article.js';
+import { dataParser } from './parsers/data-parser';
+import type { Article } from './interface/Article';
 
 import { sites } from './config/sites.js'
 import type { Site } from './interface/Site.js';
