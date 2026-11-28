@@ -65,12 +65,13 @@ const keywords: string[] = [
     'reestruturação financeira']
 
 export function titleFilter(articles: Article[]) {
-    const validArticles = articles.filter(articles =>
-        keywords.some(keyword =>
-            articles.title.toLowerCase().includes(keyword.toLowerCase())
+    return articles.filter(article => {
+        const titulo = " " + article.title
+            .toLowerCase()
+            .replace(/[^\p{L}\p{N}]+/gu, " ") + " ";
 
-        )
-
-    );
-    return validArticles
+        return keywords.some(keyword =>
+            titulo.includes(" " + keyword.toLowerCase() + " ")
+        );
+    });
 }
